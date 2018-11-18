@@ -4,7 +4,7 @@
  *
  * Author : tang long
  */
-class DBMySqli
+class DBMysqli
 {
     private $_mysqli;
     private $_mysqli_stmt;
