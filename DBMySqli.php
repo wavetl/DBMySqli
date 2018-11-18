@@ -118,9 +118,7 @@ class DBMySqli
 			}
         }
 		$ins_expressions = implode(', ',$ins_expressions);
-        if(!empty($where)) {
-            $where = 'WHERE ' . $where;
-        }
+		empty($where) OR $where = 'WHERE ' . $where;
 
         switch ($prefix) {
             case 'SELECT':
@@ -163,11 +161,9 @@ class DBMySqli
         $this->_where = '';
         if($this->_mysqli_stmt instanceof mysqli_stmt) {
             $this->_mysqli_stmt->close();
-            $this->_mysqli_stmt = null;
 		}
         if($this->_result instanceof mysqli_result) {
             $this->_mysqli->_result->free();
-            $this->_mysqli->_result = null;
 		}
 		$this->_offset = 0;
         $this->_limit = null;
@@ -216,7 +212,6 @@ class DBMySqli
         if($this->_prepare()) {
             $this->_bind_params();
         }
-
         return $this;
     }
 
@@ -564,9 +559,6 @@ class DBMySqli
      */
     public function __destruct()
     {
-        if($this->_mysqli_stmt instanceof mysqli_stmt) {
-            $this->_mysqli_stmt->close();
-		}
         if($this->_result instanceof mysqli_result)
         {
             $this->_mysqli->_result->free();
